@@ -19,7 +19,6 @@ const Collection = (props) => {
 
     const url = `https://newsapi.org/v2/top-headlines?country=in&category=${category}&pageSize=${pageSize}&page=${page}&apiKey=${apikey}`
 
-
     const fetchMoreData = async () => {
         setLoading(false)
         setPage(prev => prev + 1)
