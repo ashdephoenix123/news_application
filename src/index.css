@@ -11,3 +11,23 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.letItHover:hover{
+  transform: scale(1.02);
+  transition: .3s ease;
+  background-color: #F5F5F5;
+}
+.navbar-font{
+  font-weight: 400;
+  letter-spacing: 1.5px;
+}
+.navbar-font-1{
+  font-size: 25px;
+  letter-spacing: 10px;
+}
+.navbar-font-2{
+  font-size: 16px;
+  text-transform: uppercase;
+}
+.paragraph-font{
+  font-size: 18px;
+}
