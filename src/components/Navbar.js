@@ -4,15 +4,15 @@ import { Link } from 'react-router-dom'
 const Navbar = () => {
     return (
         <>
-            <nav className="navbar navbar-expand-xl p-4 bg-body-tertiary w-100">
-                <div className="container-fluid navbar-font navbar-font-2 ms-5">
-                    <Link className="navbar-brand navbar-font-1 ms-5 me-5" to="/">NEWZAPP</Link>
+            <nav className="navbar navbar-expand-xl bg-body-secondary py-3">
+                <div className="container-fluid navbar-font navbar-font-2">
+                    <Link className="navbar-brand navbar-font-1 mx-5" to="/">NEWZAPP</Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div className="collapse navbar-collapse text-center" id="navbarSupportedContent">
 
-                        <ul className="navbar-nav me-auto mb-2 mb-lg-0 ms-5 d-flex justify-content-center">
+                        <ul className="navbar-nav mb-lg-0 mx-auto">
                             <li className="nav-item">
                                 <Link className="nav-link" to="/">Home</Link>
                             </li>
