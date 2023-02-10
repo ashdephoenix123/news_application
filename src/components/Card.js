@@ -4,9 +4,10 @@ const Card = (props) => {
     const { publishedAt, urlToImage, title, description, author, url, source } = props;
     return (
         <>
-            <div className="col-md-3 my-2 mx-auto">
+            <div className="col-lg-3 col-md-4 col-sm-6 my-2">
+
                 <div className="card letItHover" style={{ cursor: "pointer" }}>
-                    <img src={!urlToImage ? "https://cdn.pixabay.com/photo/2015/02/15/09/33/news-636978_960_720.jpg" : urlToImage} className="card-img-top" alt="img_here" />
+                    <img src={!urlToImage ? "https://static9.depositphotos.com/1008504/1147/i/600/depositphotos_11471032-stock-photo-cubs-with-the-word-news.jpg" : urlToImage} className="card-img-top" alt="img_here" />
                     <div className="card-body">
                         <h5 className="card-title">{title}</h5>
 
@@ -15,7 +16,7 @@ const Card = (props) => {
                         {urlToImage !== "https://www.meteorio.com/wp-content/uploads/2019/05/error-2215702_1280.png" && <a href={url} rel="noreferrer" target="_blank" className="btn btn-outline-secondary">Visit</a>
                         }
                     </div>
-                    <span className="position-absolute top-0 translate-middle badge rounded-pill bg-success" style={{left: "85%", zIndex: "1"}}>
+                    <span className="position-absolute top-0 translate-middle badge rounded-pill bg-success" style={{ left: "85%", zIndex: "1" }}>
                         {source}
                     </span>
                 </div>

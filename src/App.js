@@ -17,7 +17,7 @@ function App() {
     <>
       <Navbar />
       <Routes>
-        <Route exact path='/' element={<Home apikey={apikey} category="general"/>} />
+        <Route exact path='/' element={<Home apikey={apikey} category="top"/>} />
         <Route path='/about' element={<About />} />
         <Route path='/business' element={<Business apikey={apikey} category="business"/>} />
         <Route path='/entertainment' element={<Entertainment apikey={apikey} category="entertainment"/>} />

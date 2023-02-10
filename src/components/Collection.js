@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Card from './Card'
 import Spinner from './Spinner';
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -8,33 +8,29 @@ import Footer from './Footer'
 const Collection = (props) => {
     const { category, apikey } = props
     const [articles, setArticles] = useState([])
-    const [page, setPage] = useState(1)
     const [total, setTotal] = useState(0)
     const [loading, setLoading] = useState(true)
-    const pageSize = 16
+    const [nextPage, setNextPage] = useState("")
+    const page = useRef("")
 
     function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
-    const url = `https://newsapi.org/v2/top-headlines?country=in&category=${category}&pageSize=${pageSize}&page=${page}&apiKey=${apikey}`
+    const url = `https://newsdata.io/api/1/news?apikey=${apikey}&language=en&country=in&category=${category}&page=${nextPage}`
 
-    const fetchMoreData = async () => {
-        setLoading(false)
-        setPage(prev => prev + 1)
+    const fetchMoreData = () => {
+        setNextPage(page.current.toString())
     }
 
     useEffect(() => {
-        document.title = `Newzapp - ${capitalizeFirstLetter(category)}`
+        document.title = `Newzapp - ${capitalizeFirstLetter(category)} Headlines`
         const fetchData = async () => {
             const data = await fetch(url)
             const parsedData = await data.json()
             setLoading(false)
-            if (parsedData.status === "ok") {
-                setTotal(parsedData.totalResults)
-                setArticles(prev => prev.concat(parsedData.articles))
 
-            } else if (parsedData.status === "error") {
+            if (parsedData.status === "error") {
                 setArticles([{
                     "urlToImage": "https://www.meteorio.com/wp-content/uploads/2019/05/error-2215702_1280.png",
                     "title": "Uh oh! Maximum Limit Reached!",
@@ -43,6 +39,10 @@ const Collection = (props) => {
                     "publishedAt": "",
                     "source": ""
                 }])
+            } else {
+                setTotal(parsedData.totalResults)
+                setArticles(prev => prev.concat(parsedData.results))
+                page.current = parsedData.nextPage
             }
         }
         fetchData()
@@ -51,7 +51,7 @@ const Collection = (props) => {
     return (
         <>
             <div className='my-3 text-center'>
-                <Heading title={category === "general" ? "Read Latest and top news across the world" : `${capitalizeFirstLetter(category)} Headlines`} />
+                <Heading title={category === "top" ? "Read Latest and top news across the world" : `${capitalizeFirstLetter(category)} Headlines`} />
             </div>
             {loading && <Spinner />}
             <InfiniteScroll
@@ -61,22 +61,24 @@ const Collection = (props) => {
                 loader={<Spinner />}
             >
                 <div className="container my-2">
-                    <div className="row px-5">
-                        {articles.map((item, index) => {
-                            return <Card
-                                key={index}
-                                urlToImage={item.urlToImage}
-                                title={item.title}
-                                description={item.description}
-                                url={item.url}
-                                author={item.author}
-                                publishedAt={item.publishedAt}
-                                source={item.source.name}
-                            />
-                        })}
+                    <div className="row">
+                            {articles.map((item, index) => {
+                                return <Card
+                                    key={index}
+                                    urlToImage={item.image_url}
+                                    title={item.title}
+                                    description={item.description}
+                                    url={item.link}
+                                    author={item.creator ? item.creator : ""}
+                                    // author={"akash"}
+                                    publishedAt={item.pubDate}
+                                    source={item.source_id}
+                                />
+                            })}
 
+                        </div>
                     </div>
-                </div>
+
             </InfiniteScroll>
             <div className="container">
                 {!loading && <Footer />}
@@ -106,3 +108,4 @@ export default Collection
 
 
     // https://newsapi.org/v2/top-headlines?country=in&category=general&apiKey=33b0dd53e6a649b09b127cf00b933f00
+    // const url = `https://newsapi.org/v2/top-headlines?country=in&category=${category}&pageSize=${pageSize}&page=${page}&apiKey=${apikey}`
